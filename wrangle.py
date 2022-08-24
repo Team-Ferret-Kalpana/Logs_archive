@@ -10,240 +10,89 @@ import seaborn as sns
 import env
 
 
-# In[15]:
-
-
-print('new_logs_data()' '\n' 'get_logs_data()' "\n" 'prepare(df)')
-
-
 # In[2]:
 
 
-url = f'mysql+pymysql://{env.user}:{env.password}@{env.host}/curriculum_logs'
+''' function to connect to CodeUp SQL database'''
+def get_connection(db, user=env.username, host=env.host, password=env.password):
+    return f'mysql+pymysql://{env.username}:{env.password}@{env.host}/{db}'
 
 
-# In[16]:
+# In[3]:
 
 
-def new_logs_data():
-    return pd.read_sql('''select * FROM logs LEFT JOIN cohorts ON logs.cohort_id = cohorts.id;
-
-''', url)
-
-
-import os
-
-def get_logs_data():
-    filename = "logs.csv"
+def get_logs():
+    ''' function to acquire the curriculum logs data from MySQL server with the columns i wanted to be dataframe.
+    And renamed the columns in the  SQL querry for convienience'''
+    query = '''
+       SELECT logs.date,  logs.time,
+       logs.path as endpoint,
+       logs.user_id as user,
+       logs.ip as source_ip,
+       cohorts.name as cohort_name,
+       cohorts.start_date as start_date,
+       cohorts.end_date as end_date,
+       cohorts.program_id as program_id
+       FROM logs
+       JOIN cohorts ON logs.cohort_id= cohorts.id;
+         '''
     
-    # if file is available locally, read it
-    if os.path.isfile(filename):
-        df = pd.read_csv(filename, index_col=0)
-        df.index = pd.to_datetime(df.index)
-        return df
     
-    # if file not available locally, acquire data from SQL database
-    # and write it as csv locally for future use
-    else:
-        # read the SQL query into a dataframe
-        df_logs = new_logs_data()
-        
-        # Write that dataframe to disk for later. Called "caching" the data for later.
-        df_logs.to_csv(filename)
-
-        # Return the dataframe to the calling code
-        return df_logs
-
-
-# In[4]:
-
-
-#df = new_logs_data()
-
-
-# In[5]:
-
-
-#df.to_csv('logs_unprepared.csv')
-
-
-# In[6]:
-
-
-#df.head()
+    df= pd.read_sql(query, get_connection('curriculum_logs'))
+    
+    return df
 
 
 # In[7]:
 
 
-def prepare(df):
-    df.date = pd.to_datetime(df.date)
+def prepare_log(df):
+    ''' This prepare function set the date column as index, drop unwanted columns    and set the start date and end date to date time format'''
+    #change the date column to datetime
+    df['date']=pd.to_datetime(df.date)
+    # set date column to index
     df = df.set_index(df.date)
-    df = df.drop(columns = ['cohort_id', 'id', 'deleted_at', 'date', 'slack', 'created_at', 'updated_at'])
-    df.rename(columns = {'path':'endpoint', 'user_id':'user', 'ip':'source_ip', 'name':'cohort_name'}, inplace =True)
-    return df
+    #set the start_date and end_date column to datetime format
+    df.start_date = pd.to_datetime(df.start_date)
+    df.end_date = pd.to_datetime(df.end_date)
+    #split the endpoint into 4 different sections using / as sepeartor and concatenate to the dataframe
+    df= pd.concat([df, df.endpoint.str.split('/',3, expand = True)], axis=1)
+    # renaming the columns created after the split of endpoint columns as page 1, page 2,page 3, page 4 respectively
+    df.rename(columns={0:'page_1',1:'page_2',2:'page_3',3:'page_4'}, inplace = True)
+    # data science program dataframe
+    ds_df= df[df.program_id == 3]
+    # web developers dataframe
+    web_df = df[(df.program_id != 3) & (df.cohort_name != 'Staff')]
+    #staff only dataframe
+    staff_df = df[df.cohort_name == 'staff']
+    return df,ds_df, web_df, staff_df
+
+
+# In[5]:
+
+
+# test the acquiring function
+df=get_logs()
+df.head(2)
+
+
+# In[8]:
+
+
+# test the prepare function
+df, ds_df, web_df, staff_df= prepare_log(df)
 
 
 # In[9]:
 
 
-#df = prepare(df)
+df.head()
 
 
 # In[10]:
 
 
-#df.head()
-
-
-# In[11]:
-
-
-#df.to_csv('logs.csv')
-
-
-# In[ ]:
-
-
-
-
-
-# In[12]:
-
-
-#df = get_logs_data()
-
-
-# In[13]:
-
-
-#df.head()
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
+ds_df.head()
 
 
 # In[ ]:
