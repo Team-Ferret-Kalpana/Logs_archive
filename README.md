@@ -37,9 +37,12 @@
 |program_id | Identifying number for Data science and Web Developer program|
 |page_1     | 1st part after splitting the endpoint|
 |page_2     | 2nd part after splitting the endpoint|
-|page_3     | 1rd part after splitting the endpoint|
+|page_3     | 3rd part after splitting the endpoint|
 |page_4     | 4th part after splitting the endpoint|
-
+|midband    | midband of bollinger bands
+|up         | upper band of bollinger bands
+|lb         | lower band of bollinger bands
+|pct_b      | percent b for bollinger bands
 
 
 # Steps to Reproduce the Notebook
@@ -113,7 +116,8 @@ Repo on Github: https://github.com/Team-Ferret-Kalpana/Logs_archive
 
 I will continue to work on the remainder of the questions and keep you posted.
 
-## Recommendations
+## Recommendations and Next Steps
+Investigate the 13 suspicious user IDs:
+Users Id: 48, 54, 58, 59, 61, 63, 64, 73, 78, 79, 86, 88, 103
 
-
-## Next Steps
+Sever cross curriculum access if that is still desired
