@@ -100,11 +100,11 @@ Professional Development varied strongly with cohort:
     - 'classification/overview' classification intro lesson
     - 'scale_features_or_not.svg' scaling lesson
 
-7. **Least trafficked lesson for DS:**
+**7.Least trafficked lesson for DS:**
     - fundamentals 
     - Modern-data-scientist appendix professional-development 
     - mock-behavioral-questions
-    **Least trafficked lesson for Web Dev:**
+    **- Least trafficked lesson for Web Dev:**
     - prework-fundamentals-loop 
     - prework-fundamentals-function
 
