@@ -22,7 +22,7 @@
 
 
 # Data Dictionary
-|-----------|:---------------:|
+|-----------|---------------:|
 |Date       | date when curriculum was accessed, set as index|
 |Time       | time when curriculum was accessed|
 |endpoint   | path used to access curriculum lessons|
