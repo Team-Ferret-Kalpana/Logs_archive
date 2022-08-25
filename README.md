@@ -84,15 +84,16 @@ Professional Development varied strongly with cohort:
 **4. Suspicious users and potential data scraping:**
 -Users Id: 48, 54, 58, 59, 61, 63, 64, 73, 78, 79, 86, 88, 103
 
-5. **Access to both curriculums was not shut off**
+**5.Access to both curriculums was not shut off**
 
-6. **Top 5 topics for Web Dev:**
+**6.Top 5 topics for Web Dev:**
     - '/' is homepage for web dev curriculum
     - 'javascript-i' front end language
     - 'spring' back end framework for java
     - 'html-css' front end languages
     - 'search_index.json' search in json
-    **Top 5 topics for DS:**
+    
+**Top 5 topics for DS:**
     - '/' homepage for ds curriculum
     - 'search_index.json' search in json
     - 'mysql-overview' mysql intro lesson
