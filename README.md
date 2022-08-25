@@ -22,8 +22,7 @@
 
 
 # Data Dictionary
- -----------------
-|Data Dictionary: |
+ 
 |----------|----|
 |Attribute | Value|
 |-----------|---------------:|
