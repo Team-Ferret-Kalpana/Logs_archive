@@ -22,6 +22,10 @@
 
 
 # Data Dictionary
+ -----------------
+|Data Dictionary: |
+|----------|----|
+|Attribute | Value|
 |-----------|---------------:|
 |Date       | date when curriculum was accessed, set as index|
 |Time       | time when curriculum was accessed|
@@ -36,6 +40,8 @@
 |page_2     | 2nd part after splitting the endpoint|
 |page_3     | 1rd part after splitting the endpoint|
 |page_4     | 4th part after splitting the endpoint|
+
+
 
 # Steps to Reproduce the Notebook
     - envy.py file with credentials for successful connection with CodeUp DB Server.
