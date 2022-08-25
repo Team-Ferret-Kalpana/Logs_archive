@@ -39,7 +39,7 @@ def get_logs():
     
     
     df= pd.read_sql(query, get_connection('curriculum_logs'))
-    
+    df.to_csv('casualty.csv')
     return df
 
 
